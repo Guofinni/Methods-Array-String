@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组方法封装</title>
+
+</head>
+<body>
+<script>
+    /*let Fn = function (){
+      this.getX = function () {}
+    };
+    Fn.prototype.getY = function getY() {};
+    let f = new Fn;
+    Fn.prototype.hasPubproPerty = function(key){
+        if(key in this){
+            if(this.hasOwnProperty(key)){
+                console.log("是私有");
+            }else {
+                console.log("是公有");
+            }
+        }else {
+            console.log("不是它的方法");
+        }
+    }
+    f.hasPubproPerty('getX')
+    f.hasPubproPerty('getY')
+    f.hasPubproPerty('charAt')*/
+    function fn(b) {
+        console.log(b); //1
+        if(1!=2){
+            console.log(b); //b(){}
+            function b() {
+                console.log(b); //b(){}
+            }
+            b();//b(){}
+            console.log(b); //b(){}
+        }
+        console.log(b); //1   ------？
+        b()//1 不是一个函数报错
+    };
+    fn(1)
+/*    function test(a){
+        var b = 4;
+        console.log(b);
+        if(1!=2){
+            var a = function () {
+                
+            };
+            function b() {
+
+            }
+            b();
+
+        }
+        console.log(b);
+    }
+    test(2);*/
+
+</script>
+</body>
+</html>
+<script src="array.js"></script>
