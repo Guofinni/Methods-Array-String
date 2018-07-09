@@ -14,8 +14,8 @@
 13、includes 是否包含某一元素
 */
 
-let Ary = [12, 2093,NaN,491,'dd', 458,'ss', 34,'12', 45, 56];
-let Ary1 = [12, 2093,NaN,491,'dd', 458,'ss', 34,'12', 45, 56];
+let Ary = [12, 2093, NaN, 491, 'dd', 458, 'ss', 34, '12', 45, 56];
+let Ary1 = [12, 2093, NaN, 491, 'dd', 458, 'ss', 34, '12', 45, 56];
 
 //1
 /*unshift：在数组开头新增一项
@@ -24,11 +24,11 @@ let Ary1 = [12, 2093,NaN,491,'dd', 458,'ss', 34,'12', 45, 56];
 * 原数组改变
 * */
 Array.prototype.myUnShift = function myUnShift(item) {
-    if(item !== undefined){
+    if (item !== undefined) {
         let ary = [];
-        ary.myConcat(item,this);
-        for(let i=0;i<ary.length;i++){
-            this[i]= ary[i];
+        ary.myConcat(item, this);
+        for (let i = 0; i < ary.length; i++) {
+            this[i] = ary[i];
         }
     }
     return this.length;
@@ -43,11 +43,11 @@ console.log(Ary);*/
 * 原数组改变
 * */
 Array.prototype.myPush = function myPush(item) {
-    if(item !== undefined){
+    if (item !== undefined) {
         let ary = [];
-        ary.myConcat(this,item);
-        for(let i=0;i<ary.length;i++){
-            this[i]= ary[i];
+        ary.myConcat(this, item);
+        for (let i = 0; i < ary.length; i++) {
+            this[i] = ary[i];
         }
     }
     return this.length;
@@ -61,17 +61,17 @@ console.log(Ary);*/
 * 返回值：删除的哪一项
 * 原数组改变
 * */
- Array.prototype.myShift = function myShift() {
-        let cur = this[0];
-        let NewAry = this;
-        for (let i = 0; i < NewAry.length - 1; i++) {
-            this[i] = NewAry[i + 1];
-        }
-        this.length--;
-        return cur;
-    };
-/*console.log(Ary.myShift());
-console.log(Ary);*/
+Array.prototype.myShift = function myShift() {
+    let cur = this[0];
+    for (let i = 0; i < this.length; i++) {
+        this[i] = this[i + 1];
+    }
+    this.length>=1 ? this.length-- :null;
+    return cur;
+};
+// console.log(Ary.myShift());
+// console.log(Ary);
+
 
 //4
 /*pop：删除数组的最后一项
@@ -227,7 +227,7 @@ Array.prototype.myIndexOf = function myIndexOf(chars) {
 console.log(Ary.indexOf(NaN));*/
 
 //10
-Array.prototype.myLastIndexOf =function myLastIndexOf(chars) {
+Array.prototype.myLastIndexOf = function myLastIndexOf(chars) {
     // let arg = new RegExp("/^"+chars+"$/img");
     let length = this.length;
     for (let i = length - 1; i >= 0; i--) {
@@ -265,37 +265,38 @@ console.log(Ary1.reverse());*/
 * 没有参数时：同位的字符按照Unicode编码升序排列
 * 参数是函数：
 * 其他:报错(Uncaught TypeError: The comparison function must be either a function or undefined)*/
-Array.prototype.mySort = function(callback) {
+Array.prototype.mySort = function (callback) {
     if (callback === undefined || callback instanceof Function) {
         //处理charCode函数
         //console.log(callback);
-        function convertCharCode(a,b){
+        function convertCharCode(a, b) {
             return String(a).charCodeAt(b);
         }
+
         //初始化callback
-        callback = callback || function (a,b) {
+        callback = callback || function (a, b) {
             let currentComparingIndex = 0;
-            do{
-                if(convertCharCode(a,currentComparingIndex) != convertCharCode(b,currentComparingIndex) || isNaN(convertCharCode(a,currentComparingIndex)) || isNaN(convertCharCode(b,currentComparingIndex))){
+            do {
+                if (convertCharCode(a, currentComparingIndex) != convertCharCode(b, currentComparingIndex) || isNaN(convertCharCode(a, currentComparingIndex)) || isNaN(convertCharCode(b, currentComparingIndex))) {
                     break
                 }
-            }while (currentComparingIndex++);
-            if(isNaN(convertCharCode(a,currentComparingIndex))){
+            } while (currentComparingIndex++);
+            if (isNaN(convertCharCode(a, currentComparingIndex))) {
                 return false
             }
-            if(isNaN(convertCharCode(b,currentComparingIndex))){
+            if (isNaN(convertCharCode(b, currentComparingIndex))) {
                 return true
             }
             return String(a).charCodeAt(currentComparingIndex) > String(b).charCodeAt(currentComparingIndex)
         };
         for (let i = 0; i < this.length - 1; i++) {
             for (let j = i + 1; j < this.length; j++) {
-                if (callback(this[i], this[j])>0) {
+                if (callback(this[i], this[j]) > 0) {
                     [this[i], this[j]] = [this[j], this[i]];
                 }
             }
         }
-    }else {
+    } else {
         throw "TypeError: The comparison function must be either a function or undefined";
     }
 };
@@ -306,14 +307,14 @@ console.log(Ary1);*/
 
 //13
 /*map(f(value,index,ary){}) 映射、遍历数组；*/
-Array.prototype.myMap = function(callback) {
+Array.prototype.myMap = function (callback) {
     let newAry = [];
-    if(callback instanceof Function){
+    if (callback instanceof Function) {
         for (let i = 0; i < this.length; i++) {
-            newAry[i] = callback(this[i],i,this);
+            newAry[i] = callback(this[i], i, this);
         }
-    }else {
-        throw "TypeError: "+ callback +" is not a function\n"+
+    } else {
+        throw "TypeError: " + callback + " is not a function\n" +
         "    at Array.myMap (<anonymous>)";
     }
     return newAry;
@@ -326,13 +327,13 @@ Array.prototype.myMap = function(callback) {
 
 //14
 /*forEach(f(value,index,ary){}) 映射、遍历数组；*/
-Array.prototype.myForEach = function(callback) {
-    if(callback instanceof Function){
+Array.prototype.myForEach = function (callback) {
+    if (callback instanceof Function) {
         for (let i = 0; i < this.length; i++) {
             callback(this[i], i, this);
         }
-    }else {
-        throw "TypeError: "+ callback +" is not a function\n"+
+    } else {
+        throw "TypeError: " + callback + " is not a function\n" +
         "    at Array.myForEach (<anonymous>)";
     }
 };
