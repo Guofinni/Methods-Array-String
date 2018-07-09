@@ -12,7 +12,7 @@
 11、concat()字符串拼接；
 */
 
-let str = " good good GOOD 123 456 ";
+let str = "   NaN  good good GOOD 123 456     ";
 
 
 /*1 charAt(n)返回索引字符*/
@@ -284,7 +284,6 @@ String.prototype.myReplace = function (oldStr, newStr){
                 cont += 1;
             }else {
                 getStr+=this[i];
-                //console.log(getStr);
             }
             setStr = '';
         }
@@ -314,10 +313,124 @@ String.prototype.myReplace = function (oldStr, newStr){
 // console.log(str.replace(/o/g,'GOO'));
 // console.log(str.myReplace(/o/g,'GOO'));
 
+/*10-13 trim() + trimLeft() + trimRight() 去除空格*/
+String.prototype.myTrimLeft = function (){
+    let newStr = "";
+    let step = 1;
+    for (let i = 0; i < this.length; i++) {
+        if(step === 1 && this[i] === " "){
+            continue;
+        }else{
+            newStr += this[i];
+            step=0;
+        }
+    }
+    return newStr;
+};
+// console.log(str.trimLeft());
+// console.log(str.myTrimLeft());
 
+String.prototype.myTrimRight = function (){
+    let newStr = "";
+    let step = 1;
+    for (let i = this.length-1; i >= 0; i--) {
+        if(step === 1 && this[i] === " "){
+            continue;
+        }else{
+            newStr += this[i];
+            step = 0;
+        }
+    }
+    let resultStr = "";
+    let num = newStr.length;
+    for (let j = 0; j < newStr.length; j++) {
+        num--;
+        if(newStr[num] === " "){
+            resultStr += " ";
+        }else {
+            resultStr += newStr[num];
+        }
+    }
+    newStr = null;
+    return resultStr;
+};
+// console.log(str.trimRight());
+// console.log(str.myTrimRight());
 
+String.prototype.myTrim = function (){
+    let newStr = "";
+    let setStr = "";
+    let step = 1;
+    for (let i = 0; i < this.length; i++) {
+        if(this[i] === " "){
+            if(!!step){
+                setStr="";
+            }else {
+                setStr += this[i];
+            }
+        }else if(!!setStr){
+            newStr += setStr;
+            newStr += this[i];
+            setStr = "";
+            step = 0;
+        }else {
+            newStr += this[i];
+            step = 0 ;
+        }
+    }
+    return newStr;
+};
+// console.log(str.myTrim());
+// console.log(str.trim());
 
+/*14 match('x') 输出字符串详细信息
+* 参数可以是正则*/
+String.prototype.myMatch = function (chars){
 
+};
+console.log(str.match(/(23)/));
+
+/*15 search('x') 通过字符找索引*/
+String.prototype.mySearch = function (chars){
+    if(chars instanceof RegExp){
+        let value = chars.exec(this);
+        value = !!value?value.index:-1;
+        return value;
+    }else {
+        chars = chars.toString();
+        console.log(chars.length);
+        let cutStr = "";
+        for (let i = 0; i < this.length; i++) {
+            for (let j = i; j < chars.length; j++) {
+                cutStr += this[j];
+                console.log(cutStr);
+            }
+            if(cutStr === chars){
+                console.log(cutStr);
+                return i;
+            }
+        }
+        console.log(cutStr);
+        return -1;
+    }
+};
+console.log(str.mySearch('goo'));
+console.log(str.search('goo'));
+
+/*16 concat()字符串拼接*/
+String.prototype.myConcat = function (){
+    let resultStr = "";
+    resultStr += this;
+    for (let i = 0; i < arguments.length; i++) {
+        resultStr += arguments[i].toString();
+    }
+    return resultStr ;
+};
+/*let str3 = NaN;
+let str2 = "aaa";
+let str4 = [45,'hhh'];
+console.log(str.myConcat(str3,str4,str2));
+console.log(str.concat(str3,str4,str2));*/
 
 //number
 /*
