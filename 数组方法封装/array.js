@@ -36,6 +36,24 @@ Array.prototype.myUnShift = function myUnShift(item) {
 /*console.log(Ary.myUnShift(45));
 console.log(Ary);*/
 
+//向数组前面新增多项，原数组不变
+Array.prototype.myUnPush = function myUnShift() {
+    let long = arguments.length-1;
+    let ary = this.slice(0);
+    if (long !== 0) {
+        for (let i = long; i >= 0; i--) {
+            for (let j = ary.length; j > 0 ; j--) {
+                ary[j] = ary[j-1];
+            }
+            ary[0] = arguments[i];
+        }
+    }
+    return ary;
+};
+let ary = [1,2,3];
+console.log(ary.myUnShift(5, 6, 7, 8));
+console.log(ary);
+
 //2
 /*push：在数组末尾新增一项
 * 参数：新增的项
@@ -176,21 +194,23 @@ Array.prototype.mySplice = function mySplice(index, num, ...item) {
 
 //7
 /*concat(ary,[]...) 克隆数组/数组拼接*/
-Array.prototype.myConcat = function myConcat(...item) {
-    let long = item.length;
+Array.prototype.myConcat = function myConcat() {
+    let long = arguments.length;
+    let _this = [...this];
     for (let i = 0; i < long; i++) {
-        if (item[i] instanceof Array) {
-            const length = item[i].length;
+        if (arguments[i] instanceof Array) {
+            let length = arguments[i].length;
             for (let j = 0; j < length; j++) {
-                this[this.length] = item[i][j];
+                _this[_this.length] = arguments[i][j];
             }
         } else {
-            this[this.length] = item[i];
+            _this[_this.length] = arguments[i];
         }
     }
-    return this;
+    return _this;
 };
-/*console.log(Ary.myConcat(Ary1,[23,67,45],2,34,55));*/
+console.log(Ary.myConcat([23,67,45],2,34,55));
+console.log(Ary);
 
 //8
 /*join("+") 将数组的元素以特定字符链接成一个字符串*/
